@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MvcPortal.DAL.Model.Kategori>
+@{
+    ViewBag.Title = "Kategori Listeleme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title / @Html.ActionLink("Yeni Kategori Oluştur", "Create", "Kategori", new { @class = "fa fa link" })
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Kategori Adı</th>
+                            <th>Üst Kategori</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.KategoriAdi</td>
+                                <td>
+                                    @foreach (var ustKategori in Model.Where(x=>x.ID==item.ParentID))
+                                    {
+                                        <span>@ustKategori.KategoriAdi</span>
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @if (item.Aktifmi == true)
+                                    {
+                                        <b class="col-form-label-sm">Aktif</b>
+                                    }
+                                    else
+                                    {
+                                        <b class="col-form-label alert-danger">Pasif</b>
+                                    }
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-default btn-sm" id="katDuzenle" onclick="window.location.href='@Url.Action("Edit","Kategori",new { ID=item.ID})'">Düzenle</button>
+
+                                    <button class="btn btn-default btn-sm" id="katDelete" onclick="KategoriSil()" data-id="@item.ID">Sil</button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->

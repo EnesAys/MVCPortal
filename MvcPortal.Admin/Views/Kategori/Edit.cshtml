@@ -1,0 +1,40 @@
+﻿@model MvcPortal.DAL.Model.Kategori
+
+@{
+    ViewBag.Title = "Kategori Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="card-header">  @ViewBag.Title / @Html.ActionLink("Kategori Listele", "Index", "Kategori", new { @class = "fa fa link" }) </div>
+
+    <div class="card-body">
+        @Html.HiddenFor(x=>x.ID)
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Üst Kategori</label>
+                @Html.DropDownListFor(model => model.ParentID, new SelectList(ViewBag.Kategori, "ID", "KategoriAdi"), ("Seçiniz"), new { @class = "form-control", id = "ParentID" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Kategori Adı</label>
+                @Html.TextBoxFor(x=>x.KategoriAdi,new {@class ="form-control",id= "KategoriAdi", placeholder = "Kategori Adı" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Kategori URL</label>
+                @Html.TextBoxFor(x => x.URL, new { @class = "form-control", id = "katURL", placeholder ="URL" })
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        @Html.CheckBoxFor(x => x.Aktifmi, new {@checked = "checked", id = "katAktif" })
+                    </label>
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-primary btn-block" onclick="KategoriDüzenle()">Güncelle</a>
+
+        </form>
+
+    </div>
+</div>

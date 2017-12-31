@@ -1,0 +1,38 @@
+﻿@model MvcPortal.DAL.Model.Kategori
+@{
+    ViewBag.Title = "Kategori Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+        <div class="container-fluid">
+            <div class="card-header">  @ViewBag.Title @Html.ActionLink("Kategori Listele", "Index", "Kategori", new { @class = "fa fa link" }) </div>
+               
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Üst Kategori</label>
+                            @Html.DropDownListFor(model=>model.KategoriAdi,new SelectList(ViewBag.Kategori,"ID","KategoriAdi"),("Seçiniz"),new {@class="form-control",id="ParentID" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Kategori Adı</label>
+                            <input class="form-control" id="KategoriAdi" type="text" placeholder="Kategori Adı" required>
+                        </div>
+                           <div class="form-group">
+                            <label for="exampleInputEmail1">Kategori URL</label>
+                            <input class="form-control" id="katURL" type="text" placeholder="URL">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"id="katAktif" checked/>Aktif Mi?
+                                </label>
+                            </div>
+                        </div>
+                   
+                        <a href="#" class="btn btn-primary btn-block" onclick="KategoriEkle()">Kaydet</a>
+
+                    </form>
+
+                </div>
+        </div>
+
